@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Músculos Afectados por el Sedentarismo y Trabajo de Oficina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .muscle-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-left: 5px solid #3498db;
+            border-radius: 5px;
+        }
+        details {
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        summary {
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #e9ecef;
+            border-bottom: 1px solid #ddd;
+            list-style: none; /* Remove default triangle */
+        }
+        summary::-webkit-details-marker { /* Chrome/Safari */
+            display: none;
+        }
+        summary::before { /* Custom triangle */
+            content: '▶ ';
+            color: #3498db;
+        }
+        details[open] summary::before {
+            content: '▼ ';
+        }
+        .details-content {
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+        .citation {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            display: block;
+            margin-top: 5px;
+        }
+        .highlight {
+            color: #c0392b; /* Reddish color for emphasis on decay/atrophy */
+            font-weight: bold;
+        }
+        .intro, .conclusion {
+            background-color: #e8f6fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2980b9;
+        }
+        .evidence-box {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fffadf;
+            border: 1px dashed #f1c40f;
+            border-radius: 4px;
+        }
+        .evidence-box h4 {
+            margin-top: 0;
+            color: #d35400;
+        }
+        .evidence-box ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Músculos Afectados por el Sedentarismo y Trabajo de Oficina Prolongado</h1>
+
+        <div class="intro">
+            <p>El sedentarismo y el trabajo de oficina prolongado inducen un deterioro sistémico que afecta a una amplia gama de músculos esqueléticos. A continuación, se detallan los músculos específicos que experimentan <span class="highlight">atrofia, decaimiento o degeneración</span> según la evidencia proporcionada.</p>
+        </div>
+
+        <div class="muscle-group">
+            <h2>Músculos de las Extremidades Inferiores</h2>
+            <details>
+                <summary>Cuádriceps</summary>
+                <div class="details-content">
+                    <p>Experimenta una <span class="highlight">marcada atrofia</span> después de tan solo 10 días de inactividad, con una pérdida acelerada durante períodos más largos.</p>
+                    <span class="citation">Referencia: (1.1, 1.2)</span>
+                    <div class="evidence-box">
+                        <h4>Evidencia Adicional (Best evidence 1 & 5):</h4>
+                        <ul>
+                            <li>Pérdida muscular de aproximadamente 6% después de 10 días, 10% después de 29 días, 13% después de 60 días y hasta 18% después de 90 días de inactividad (Evidence 1).</li>
+                            <li>Como músculo antigravitatorio, es particularmente susceptible a la atrofia durante períodos de carga mecánica reducida (Evidence 5).</li>
+                            <li>La pérdida de función muscular suele superar la pérdida de tamaño (Evidence 5).</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+            <details>
+                <summary>Músculos de la Pantorrilla (Gemelos/Sóleo)</summary>
+                <div class="details-content">
+                    <p>Exhiben un <span class="highlight">área de sección transversal reducida</span> debido al desuso y la inmovilización.</p>
+                    <span class="citation">Referencia: (1.1, 1.2)</span>
+                     <div class="evidence-box">
+                        <h4>Evidencia Adicional (Best evidence 3):</h4>
+                        <ul>
+                            <li>La actividad eléctrica en los músculos de las piernas cesa durante la sedestación prolongada, lo que conduce a la atrofia muscular (Evidence 3).</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="muscle-group">
+            <h2>Músculos del Tronco (Sistema Postural)</h2>
+            <details>
+                <summary>Erectores Espinales (Erector Spinae)</summary>
+                <div class="details-content">
+                    <p>Esenciales para el soporte lumbar y la estabilidad espinal, exhiben un <span class="highlight">deterioro significativo</span> cuando la carga mecánica está ausente o reducida.</p>
+                    <span class="citation">Referencia: (Kastelic2018SittingAndLow pages4-5, Kuster2020IsActiveSitting pages11-13)</span>
+                    <div class="evidence-box">
+                        <h4>Evidencia Adicional (Best evidence 2):</h4>
+                        <ul>
+                            <li>Estos músculos muestran signos de fatiga rápidamente al estar sentado, y su fuerza y resistencia insuficientes se relacionan con una mayor incidencia de dolor lumbar.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+            <details>
+                <summary>Multífidos (Multifidus)</summary>
+                <div class="details-content">
+                    <p>También esenciales para el soporte lumbar y la estabilidad espinal, muestran un <span class="highlight">deterioro significativo</span> con la reducción de la carga mecánica.</p>
+                    <span class="citation">Referencia: (Kastelic2018SittingAndLow pages4-5, Kuster2020IsActiveSitting pages11-13)</span>
+                     <div class="evidence-box">
+                        <h4>Evidencia Adicional (Best evidence 2):</h4>
+                        <ul>
+                             <li>Al igual que los erectores espinales, su función es crucial para la estabilidad y pueden fatigarse, contribuyendo al dolor lumbar.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+            <details>
+                <summary>Psoas</summary>
+                <div class="details-content">
+                    <p>Otro estabilizador central de la región lumbar, sufre <span class="highlight">degeneración</span> en entornos que implican dolor lumbar crónico asociado con inactividad sostenida.</p>
+                    <span class="citation">Referencia: (Kastelic2018SittingAndLow pages4-5, Kuster2020IsActiveSitting pages11-13)</span>
+                    <div class="evidence-box">
+                        <h4>Evidencia Adicional (Best evidence 2):</h4>
+                        <ul>
+                             <li>Estar sentado prolongadamente puede acortar los flexores de cadera como el psoas, llevando a desequilibrios musculares.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="muscle-group">
+            <h2>Músculos del Core (Estabilizadores)</h2>
+            <details>
+                <summary>Oblicuo Interno (Internal Oblique)</summary>
+                <div class="details-content">
+                    <p>Juega un papel crucial en el mantenimiento de la integridad y postura lumbar. Demuestra <span class="highlight">signos tempranos de fatiga</span> durante la sedestación prolongada, lo que puede preceder a un eventual <span class="highlight">deterioro muscular</span>.</p>
+                    <span class="citation">Referencia: (2.1)</span>
+                    <div class="evidence-box">
+                        <h4>Evidencia Adicional (Best evidence 4):</h4>
+                        <ul>
+                             <li>Muestran signos de fatiga (disminución de la frecuencia mediana EMG) en postura sentada encorvada después de una hora, comprometiendo la estabilidad de la columna.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+            <details>
+                <summary>Transverso del Abdomen (Transversus Abdominis)</summary>
+                <div class="details-content">
+                    <p>Fundamental para la integridad y postura lumbar, también muestra <span class="highlight">fatiga temprana</span> en sedestación prolongada, pudiendo llevar a <span class="highlight">deterioro muscular</span> si el estímulo de contracción es insuficiente.</p>
+                    <span class="citation">Referencia: (2.1)</span>
+                     <div class="evidence-box">
+                        <h4>Evidencia Adicional (Best evidence 4):</h4>
+                        <ul>
+                             <li>Similar al oblicuo interno, su fatiga en posturas sentadas deficientes puede aumentar el riesgo de lesiones y dolor lumbar.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="muscle-group">
+            <h2>Músculos de la Parte Superior del Cuerpo</h2>
+            <details>
+                <summary>Trapecio (Trapezius)</summary>
+                <div class="details-content">
+                    <p>Muy implicado en el mantenimiento de la postura del hombro y el flujo sanguíneo microcirculatorio en la región cuello/hombro. Muestra <span class="highlight">perfusión y saturación de oxígeno deficientes</span> durante el trabajo de oficina sedentario, lo que puede contribuir a <span class="highlight">cambios degenerativos a largo plazo</span> y disfunción característica del <span class="highlight">deterioro muscular</span>.</p>
+                    <span class="citation">Referencia: (3.1)</span>
+                </div>
+            </details>
+        </div>
+
+        <div class="conclusion">
+            <h2>Otros Efectos y Conclusión General</h2>
+            <p>Más allá de los músculos específicos, el sedentarismo promueve cambios fisiológicos generales en el músculo esquelético:</p>
+            <ul>
+                <li>Un cambio de fibras oxidativas de contracción lenta a fibras glucolíticas de contracción rápida, lo que resulta en una <span class="highlight">menor capacidad para la contracción sostenida</span> y un <span class="highlight">inicio rápido de la fatiga</span>. <span class="citation">(4.1, 4.2)</span></li>
+                <li>Reducción de la actividad de enzimas clave como la lipoproteína lipasa muscular (LPL), lo que <span class="highlight">afecta la oxidación de grasas</span> y exacerba los desequilibrios metabólicos que potencian aún más la <span class="highlight">atrofia muscular</span>. <span class="citation">(4.1, 4.2)</span></li>
+                <li>Deterioro de la integridad de la unión neuromuscular (NMJ) en varios grupos musculares, lo que <span class="highlight">afecta la fuerza contráctil</span> y contribuye al <span class="highlight">deterioro acelerado</span>. <span class="citation">(1.3, 1.4)</span></li>
+            </ul>
+            <p>Estos efectos subrayan la importancia de la actividad física regular y las interrupciones periódicas del comportamiento sedentario para preservar la función del músculo esquelético y mitigar las consecuencias perjudiciales del trabajo de oficina prolongado. <span class="citation">(1.2, 4.3)</span></p>
+        </div>
+
+    </div>
+</body>
+</html>
