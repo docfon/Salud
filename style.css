@@ -62,6 +62,7 @@ body {
     margin-bottom: 3rem;
     background: linear-gradient(45deg, var(--text-primary), var(--text-secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -424,10 +425,12 @@ select {
         flex-direction: row;
         justify-content: space-between;
         padding: 0 2rem;
-        bottom: 0;
-        top: auto;
+        top: 0;
+        bottom: auto;
         border-right: none;
-        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+        background: rgba(255, 255, 255, 0.95);
+        /* Ensure visibility */
     }
 
     .nav-dots {
@@ -436,7 +439,9 @@ select {
 
     .content {
         margin-left: 0;
-        margin-bottom: 60px;
+        margin-top: 60px;
+        /* Space for top bar */
+        margin-bottom: 0;
         padding: 2rem;
     }
 
@@ -446,5 +451,70 @@ select {
 
     h1 {
         font-size: 2.5rem;
+    }
+}
+
+/* Graph Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal.show {
+    display: flex;
+}
+
+/* Clickable Graphs */
+canvas {
+    cursor: zoom-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

@@ -249,4 +249,57 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // --- MODAL GRAPH LOGIC ---
+    const modal = document.getElementById('graphModal');
+    const modalCtx = document.getElementById('modalChart').getContext('2d');
+    const closeBtn = document.querySelector('.close-modal');
+    let modalChartInstance = null;
+
+    // Add click listeners to all chart canvases
+    const allCanvases = document.querySelectorAll('canvas:not(#modalChart)');
+    
+    allCanvases.forEach(canvas => {
+        canvas.addEventListener('click', () => {
+            const originalChart = Chart.getChart(canvas);
+            if (!originalChart) return;
+
+            // Destroy previous instance if exists
+            if (modalChartInstance) {
+                modalChartInstance.destroy();
+            }
+
+            // Clone config
+            const config = {
+                type: originalChart.config.type,
+                data: JSON.parse(JSON.stringify(originalChart.config.data)), // Deep copy data
+                options: JSON.parse(JSON.stringify(originalChart.config.options)) // Deep copy options
+            };
+
+            // Adjust options for modal (e.g. maintain aspect ratio but bigger)
+            config.options.maintainAspectRatio = false;
+            config.options.responsive = true;
+            // Ensure plugins like title/legend are visible/adjusted if needed
+            // For now, exact copy is fine, maybe increase font size? 
+            // Let's keep it simple first.
+
+            modal.classList.add('show');
+            
+            // Allow time for modal to display before rendering (optional but safer for dimensions)
+            requestAnimationFrame(() => {
+                modalChartInstance = new Chart(modalCtx, config);
+            });
+        });
+    });
+
+    // Close Modal Logic
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
 });
