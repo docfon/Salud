@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRVR | Inteligencia Climática y Epidemiológica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <div class="logo">TRVR</div>
+            <div class="nav-dots">
+                <a href="#dashboard" class="nav-dot active" title="Tablero Principal"></a>
+                <a href="#trends" class="nav-dot" title="Tendencias por Enfermedad"></a>
+                <a href="#forecast" class="nav-dot" title="Pronóstico 2026"></a>
+                <a href="#viral" class="nav-dot" title="Picos Virales"></a>
+                <a href="#climate" class="nav-dot" title="Impacto Climático"></a>
+                <a href="#correlations" class="nav-dot" title="Correlaciones"></a>
+            </div>
+            <div class="version">v1.3</div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+
+            <!-- SECCIÓN 1: DASHBOARD OVERVIEW -->
+            <section id="dashboard" class="active-section">
+                <header>
+                    <h1>Colombia 2026: <span class="highlight">Nexo Clima-Salud</span></h1>
+                    <p class="subtitle">Inteligencia en tiempo real sobre cambios epidemiológicos impulsados por
+                        anomalías climáticas.</p>
+                </header>
+
+                <div class="grid-dashboard">
+                    <div class="card stat-card glow-red">
+                        <h3>Alerta Dengue</h3>
+                        <div class="big-number">675%</div>
+                        <p class="trend-up">Aumento en Santa Marta</p>
+                        <small>vs. Año Anterior (Feb 2026)</small>
+                    </div>
+                    <div class="card stat-card glow-blue">
+                        <h3>Anomalía Pluvial</h3>
+                        <div class="big-number">+50%</div>
+                        <p class="trend-up">Región Caribe</p>
+                        <small>Lluvias intensas en temporada seca</small>
+                    </div>
+                    <div class="card stat-card glow-green">
+                        <h3>Tendencia Malaria</h3>
+                        <div class="big-number">+81%</div>
+                        <p class="trend-up">Aumento Nacional</p>
+                        <small>Explosión vectorial por inundaciones</small>
+                    </div>
+                    <div class="card stat-card glow-orange">
+                        <h3>Récord Temp.</h3>
+                        <div class="big-number">43.8°C</div>
+                        <p class="trend-warn">Jerusalén, Cundinamarca</p>
+                        <small>Temp. histórica verificada más alta</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: TENDENCIAS POR ENFERMEDAD -->
+            <section id="trends">
+                <header>
+                    <h2>Tendencias Anuales por Enfermedad</h2>
+                    <p>Análisis comparativo de casos reportados (2024 - 2026).</p>
+                </header>
+                <div class="card graph-card" style="min-height: 500px;">
+                    <div class="controls">
+                        <label for="diseaseSelect">Seleccionar Enfermedad:</label>
+                        <select id="diseaseSelect">
+                            <option value="dengue">Dengue</option>
+                            <option value="malaria">Malaria</option>
+                            <option value="ira">Infección Respiratoria (IRA)</option>
+                        </select>
+                    </div>
+                    <h3>Curva Epidémica Anual</h3>
+                    <canvas id="trendChart"></canvas>
+                    <div class="insight-box" id="trendInsight">
+                        <strong>Insight:</strong> El Dengue mostró un comportamiento histórico en 2024 debido a El Niño.
+                        2026 inicia con picos atípicos en la costa norte.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: PRONÓSTICO MENSUAL 2026 (NUEVA) -->
+            <section id="forecast">
+                <header>
+                    <h2>Pronóstico Epidemiológico 2026</h2>
+                    <p>Proyección de riesgos basada en patrones históricos y anomalías climáticas actuales.</p>
+                </header>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Ene - Feb</div>
+                        <div class="timeline-content">
+                            <h3>🚨 Alerta Temprana</h3>
+                            <p><strong>Dengue & "Supergripa"</strong></p>
+                            <ul>
+                                <li>Pico atípico de Dengue en Caribe (Santa Marta, Atlántico).</li>
+                                <li>Aumento de IRA en Bogotá por choque térmico (frentes fríos + humedad).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Mar - May</div>
+                        <div class="timeline-content">
+                            <h3>🌧️ 1er Pico Respiratorio</h3>
+                            <p><strong>Influenza & VSR</strong></p>
+                            <ul>
+                                <li>Inicio formal de temporada de lluvias.</li>
+                                <li>Pico máximo de consultas por infecciones respiratorias en niños <5 años.</li>
+                                <li>Riesgo alto en Región Andina y Pacífica.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Jun - Ago</div>
+                        <div class="timeline-content">
+                            <h3>🦟 Transición Vectorial</h3>
+                            <p><strong>Malaria & Chikungunya</strong></p>
+                            <ul>
+                                <li>Descenso leve de lluvias (Veranillo de San Juan).</li>
+                                <li>Posibles brotes de Malaria en Pacífico y Amazonía si persisten zonas inundadas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Sep - Dic</div>
+                        <div class="timeline-content">
+                            <h3>⚠️ Riesgo Compuesto</h3>
+                            <p><strong>2do Pico Respiratorio + Dengue</strong></p>
+                            <ul>
+                                <li>Temporada de lluvias más intensa del año.</li>
+                                <li>Convergencia de virus respiratorios y enfermedades transmitidas por vectores.</li>
+                                <li>Posible fenómeno de La Niña activando alertas hidrológicas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 4: PICOS VIRALES -->
+            <section id="viral">
+                <header>
+                    <h2>Estacionalidad y Picos Virales</h2>
+                    <p>Proyección de incidencia de virus respiratorios y vectoriales.</p>
+                </header>
+                <div class="grid-split">
+                    <div class="card graph-card">
+                        <h3>Pronóstico Respiratorio (IRA)</h3>
+                        <canvas id="iraChart"></canvas>
+                        <div class="insight-box">
+                            <strong>Clave:</strong> Fenómeno de "Supergripa" impulsado por frentes fríos y alta humedad.
+                            Primer pico (Mar-Jun) supera umbrales.
+                        </div>
+                    </div>
+                    <div class="card graph-card">
+                        <h3>Distribución Parásito Malaria</h3>
+                        <canvas id="malariaChart"></canvas>
+                        <div class="insight-box">
+                            <strong>Clave:</strong> <em>P. vivax</em> domina (65.3%), pero <em>P. falciparum</em>
+                            (33.7%) plantea mayores riesgos de letalidad en el Pacífico.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 5: IMPACTO CLIMÁTICO -->
+            <section id="climate">
+                <header>
+                    <h2>Velocidad del Cambio Climático</h2>
+                    <p>Cuantificación de la aceleración de cambios ambientales en Colombia.</p>
+                </header>
+                <div class="grid-split">
+                    <div class="card graph-card">
+                        <h3>Línea de Extinción Glacial</h3>
+                        <canvas id="glacierChart"></canvas>
+                        <div class="insight-box">
+                            <strong>Advertencia Crítica:</strong> Volcán Santa Isabel perdió 45% de hielo en 2 años.
+                            Extinción total prevista 2030-2050.
+                        </div>
+                    </div>
+                    <div class="card graph-card">
+                        <h3>Anomalías de Temperatura</h3>
+                        <canvas id="tempChart"></canvas>
+                        <div class="insight-box">
+                            <strong>Proyección:</strong> Aumento medio de +1.5°C a +2.0°C para 2050. Región Andina más
+                            vulnerable al estrés térmico.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 6: CORRELACIONES -->
+            <section id="correlations">
+                <header>
+                    <h2>Correlaciones Sistémicas</h2>
+                    <p>Impulsores interconectados de crisis de salud pública.</p>
+                </header>
+                <div class="correlation-container">
+                    <div class="correlation-item">
+                        <div class="corr-icon">🦟</div>
+                        <div class="corr-content">
+                            <h3>Temp. Alta + Almacenamiento Agua = Dengue</h3>
+                            <p>Incluso en temporadas secas, la falla de infraestructura fuerza el almacenamiento de
+                                agua, creando criaderos asociados al calor.</p>
+                        </div>
+                    </div>
+                    <div class="correlation-item">
+                        <div class="corr-icon">🌧️</div>
+                        <div class="corr-content">
+                            <h3>Inundaciones + Desbordamiento = Malaria</h3>
+                            <p>Lluvias intensas en cuencas Sinú/San Jorge desplazan poblaciones, eliminando barreras
+                                físicas contra mosquitos.</p>
+                        </div>
+                    </div>
+                    <div class="correlation-item">
+                        <div class="corr-icon">❄️</div>
+                        <div class="corr-content">
+                            <h3>Frentes Fríos + Humedad = "Supergripa"</h3>
+                            <p>Bajas temperaturas matutinas interactuando con humedad de lluvias aumentan la estabilidad
+                                viral de patógenos respiratorios.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 7: FUENTES DE DATOS (NUEVA) -->
+            <section id="sources" style="min-height: auto; margin-bottom: 2rem;">
+                <div class="card" style="padding: 2rem; background: var(--bg-deep);">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Fuentes de Datos y Metodología</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                        Este tablero integra información de múltiples fuentes oficiales y análisis predictivos:
+                        <br><br>
+                        <strong>1. Datos Epidemiológicos:</strong> Instituto Nacional de Salud (INS) de Colombia -
+                        Boletines Epidemiológicos Semanales (BES 2024-2026).
+                        <br>
+                        <strong>2. Datos Climáticos:</strong> Instituto de Hidrología, Meteorología y Estudios
+                        Ambientales (IDEAM) - Pronósticos y Alertas.
+                        <br>
+                        <strong>3. Modelado Predictivo:</strong> NotebookLM Analysis (Google) - "Clima y Enfermedad
+                        2026", "Picos Virales 2024+", "Cambio Climático 2024+".
+                        <br><br>
+                        <em>Aviso Legal: Esta herramienta es para fines informativos y de visualización de tendencias.
+                            No constituye asesoramiento médico oficial.</em>
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
