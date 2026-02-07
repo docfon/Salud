@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scrolling logic
     const sections = document.querySelectorAll('section');
-    const navDots = document.querySelectorAll('.nav-dot');
+    const navItems = document.querySelectorAll('.nav-item');
 
     window.addEventListener('scroll', () => {
         let current = '';
@@ -242,10 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        navDots.forEach(dot => {
-            dot.classList.remove('active');
-            if (dot.getAttribute('href').includes(current)) {
-                dot.classList.add('active');
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href').includes(current)) {
+                item.classList.add('active');
             }
         });
     });
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add click listeners to all chart canvases
     const allCanvases = document.querySelectorAll('canvas:not(#modalChart)');
-    
+
     allCanvases.forEach(canvas => {
         canvas.addEventListener('click', () => {
             const originalChart = Chart.getChart(canvas);
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Let's keep it simple first.
 
             modal.classList.add('show');
-            
+
             // Allow time for modal to display before rendering (optional but safer for dimensions)
             requestAnimationFrame(() => {
                 modalChartInstance = new Chart(modalCtx, config);
@@ -302,4 +302,57 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.remove('show');
         }
     });
+    // --- LEAFLET MAP LOGIC ---
+    // Initialize map
+    const map = L.map('colombiaMap').setView([4.5709, -74.2973], 5);
+
+    // Add tiles (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        zoomControl: false // Cleaner look
+    }).addTo(map);
+
+    // Disease Data Points (2026 Forecast)
+    const diseasePoints = [
+        { name: "Santa Marta", lat: 11.2404, lon: -74.1990, disease: "Dengue", type: "red", stat: "+675%", desc: "Aumento crítico vs. 2025. Alerta Roja." },
+        { name: "Cali", lat: 3.4516, lon: -76.5320, disease: "Dengue", type: "red", stat: "Alto", desc: "Focos persistentes en zona urbana." },
+        { name: "Medellín", lat: 6.2442, lon: -75.5812, disease: "Dengue", type: "red", stat: "Alto", desc: "Aumento en Bello e Itagüí." },
+        { name: "Ibagué", lat: 4.4389, lon: -75.2322, disease: "Dengue", type: "red", stat: "Alerta", desc: "Brote asociado a almacenamiento de agua." },
+        { name: "Villavicencio", lat: 4.1420, lon: -73.6266, disease: "Dengue", type: "red", stat: "Severo", desc: "Alta transmisión en Llanos Orientales." },
+        { name: "Tierralta", lat: 8.1710, lon: -76.0590, disease: "Malaria", type: "orange", stat: "Crítico", desc: "Inundaciones en cuenca Sinú/San Jorge." },
+        { name: "Quibdó", lat: 5.6947, lon: -76.6611, disease: "Malaria", type: "orange", stat: "Endémico", desc: "Transmisión sostenida P. falciparum." },
+        { name: "Buenaventura", lat: 3.8801, lon: -77.0312, disease: "Malaria", type: "orange", stat: "Riesgo", desc: "Aumento de vectores por lluvias." },
+        { name: "Leticia", lat: -4.2153, lon: -69.9406, disease: "Oropouche", type: "orange", stat: "Brote", desc: "Coinfección con Malaria reportada." },
+        { name: "Bogotá", lat: 4.7110, lon: -74.0721, disease: "IRA", type: "blue", stat: "Pico", desc: "Choque térmico y alta humedad." },
+        { name: "Riohacha", lat: 11.5444, lon: -72.9072, disease: "IRA", type: "blue", stat: "Mortalidad", desc: "Riesgo alto en menores de 5 años." },
+        { name: "Tolima (Zona Rural)", lat: 3.9, lon: -75.0, disease: "F. Amarilla", type: "yellow", stat: "Brote", desc: "Emergencia en Cunday y Prado." }
+    ];
+
+    // Add Markers
+    diseasePoints.forEach(point => {
+        const color = point.type === 'red' ? '#d93025' :
+            point.type === 'orange' ? '#e37400' :
+                point.type === 'blue' ? '#1a73e8' : '#fbbc04';
+
+        const circle = L.circleMarker([point.lat, point.lon], {
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.7,
+            radius: 8
+        }).addTo(map);
+
+        // Custom Popup
+        const popupContent = `
+            <div class="popup-title">
+                ${point.name}
+                <span class="popup-disease bg-${point.type}">${point.disease}</span>
+            </div>
+            <div class="popup-stat">${point.stat}</div>
+            <div class="popup-detail">${point.desc}</div>
+        `;
+
+        circle.bindPopup(popupContent);
+    });
+
 });
+

@@ -51,40 +51,83 @@ body {
     position: fixed;
     backdrop-filter: blur(10px);
     z-index: 100;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
+    transition: width 0.3s ease;
+    overflow: hidden;
+    /* Hide label overflow when collapsed */
+}
+
+/* Expand sidebar on hover for labels */
+.sidebar:hover {
+    width: 200px;
+    align-items: flex-start;
+    /* Align text left */
+    padding-left: 20px;
 }
 
 .logo {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     letter-spacing: 2px;
     margin-bottom: 3rem;
     background: linear-gradient(45deg, var(--text-primary), var(--text-secondary));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    padding-left: 5px;
+    /* Alignment fix */
 }
 
-.nav-dots {
+.nav-menu {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+    width: 100%;
 }
 
-.nav-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.8rem;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.nav-item:hover {
+    background-color: #f0f4f8;
+    color: var(--text-primary);
+}
+
+.nav-item.active {
+    background-color: #e8f0fe;
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+.material-symbols-outlined {
+    font-size: 24px;
+    min-width: 24px;
+    /* Stop icon shrinking */
+}
+
+.nav-label {
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-10px);
     transition: all 0.3s ease;
-    cursor: pointer;
+    font-size: 0.95rem;
+    pointer-events: none;
+    /* Let clicks pass through */
 }
 
-.nav-dot:hover,
-.nav-dot.active {
-    background-color: var(--text-primary);
-    transform: scale(1.2);
+.sidebar:hover .nav-label {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .version {
@@ -94,6 +137,14 @@ body {
     writing-mode: vertical-rl;
     text-orientation: mixed;
     opacity: 0.5;
+    align-self: center;
+    /* Keep centered at bottom */
+}
+
+.sidebar:hover .version {
+    writing-mode: horizontal-tb;
+    align-self: flex-start;
+    padding-left: 10px;
 }
 
 /* Content */
@@ -315,7 +366,41 @@ canvas {
 .corr-content p {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.4;
+}
+
+/* User Profile Footer */
+.user-profile {
+    margin-top: 4rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-subtle);
+    text-align: center;
+}
+
+.profile-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.profile-role {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.profile-tagline {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    max-width: 600px;
+    margin: 0 auto;
+    font-style: italic;
 }
 
 /* Controls for new chart */
@@ -433,8 +518,20 @@ select {
         /* Ensure visibility */
     }
 
-    .nav-dots {
+    .nav-menu {
         flex-direction: row;
+        width: auto;
+        gap: 0.2rem;
+        overflow-x: auto;
+        /* Allow scrolling if many icons */
+    }
+
+    .nav-label {
+        display: none;
+    }
+
+    .logo {
+        margin-bottom: 0;
     }
 
     .content {
@@ -517,4 +614,137 @@ canvas {
     to {
         opacity: 1;
     }
+}
+
+/* Map Styles */
+.map-card {
+    height: 600px;
+    padding: 0;
+    /* Remove padding to let map fill card */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#colombiaMap {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.map-legend {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    /* Above map tiles */
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--border-subtle);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.legend-item:last-child {
+    margin-bottom: 0;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.red {
+    background: var(--accent-red);
+    box-shadow: 0 0 5px var(--accent-red);
+}
+
+.dot.orange {
+    background: var(--accent-orange);
+    box-shadow: 0 0 5px var(--accent-orange);
+}
+
+.dot.blue {
+    background: var(--accent-blue);
+    box-shadow: 0 0 5px var(--accent-blue);
+}
+
+.dot.yellow {
+    background: #fbbc04;
+    box-shadow: 0 0 5px #fbbc04;
+}
+
+/* Leaflet Popup Customization */
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    padding: 0.5rem;
+    font-family: var(--font-body);
+}
+
+.leaflet-popup-content {
+    margin: 0.5rem;
+    width: 200px !important;
+}
+
+.popup-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-disease {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: white;
+}
+
+.bg-red {
+    background: var(--accent-red);
+}
+
+.bg-orange {
+    background: var(--accent-orange);
+}
+
+.bg-blue {
+    background: var(--accent-blue);
+}
+
+.bg-yellow {
+    background: #fbbc04;
+    color: black;
+}
+
+.popup-stat {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0.5rem 0;
+}
+
+.popup-detail {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
 }
