@@ -312,6 +312,42 @@ document.addEventListener('DOMContentLoaded', () => {
         zoomControl: false // Cleaner look
     }).addTo(map);
 
+    // --- REGION HELPERS ---
+    // (Kept for table lookups, map overlay removed per request)
+
+    const deptToRegion = {
+        'Antioquia': 'Andina', 'Boyacá': 'Andina', 'Caldas': 'Andina', 'Cundinamarca': 'Andina',
+        'Huila': 'Andina', 'Norte de Santander': 'Andina', 'Quindío': 'Andina', 'Risaralda': 'Andina',
+        'Santander': 'Andina', 'Tolima': 'Andina', 'Bogota': 'Andina', 'Bogotá': 'Andina',
+
+        'Atlántico': 'Caribe', 'Bolívar': 'Caribe', 'Cesar': 'Caribe', 'Córdoba': 'Caribe',
+        'La Guajira': 'Caribe', 'Magdalena': 'Caribe', 'Sucre': 'Caribe', 'San Andrés y Providencia': 'Insular',
+        'Archipiélago de San Andrés, Providencia y Santa Catalina': 'Insular',
+
+        'Chocó': 'Pacífica', 'Valle del Cauca': 'Pacífica', 'Cauca': 'Pacífica', 'Nariño': 'Pacífica',
+
+        'Arauca': 'Orinoquía', 'Casanare': 'Orinoquía', 'Meta': 'Orinoquía', 'Vichada': 'Orinoquía',
+
+        'Amazonas': 'Amazonía', 'Caquetá': 'Amazonía', 'Guainía': 'Amazonía',
+        'Guaviare': 'Amazonía', 'Putumayo': 'Amazonía', 'Vaupés': 'Amazonía'
+    };
+
+    // Helper to normalize strings for matching (remove accents, etc if needed, but simple map first)
+    function getRegion(deptName) {
+        // Simple normalization/lookup
+        if (deptToRegion[deptName]) return deptToRegion[deptName];
+
+        // fuzzy match or partial check if needed
+        for (const [key, val] of Object.entries(deptToRegion)) {
+            if (deptName.includes(key)) return val;
+        }
+        return 'Andina'; // Default
+    }
+
+
+
+
+
     // Disease Data Points (2026 Forecast)
     const diseasePoints = [
         { name: "Santa Marta", lat: 11.2404, lon: -74.1990, disease: "Dengue", type: "red", stat: "+675%", desc: "Aumento crítico vs. 2025. Alerta Roja." },
@@ -328,17 +364,38 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Tolima (Zona Rural)", lat: 3.9, lon: -75.0, disease: "F. Amarilla", type: "yellow", stat: "Brote", desc: "Emergencia en Cunday y Prado." }
     ];
 
+    // --- MARKER LOGIC ---
+
+    // Create a custom pane to ensure markers are always on top
+    map.createPane('diseaseMarkers');
+    map.getPane('diseaseMarkers').style.zIndex = 650;
+    map.getPane('diseaseMarkers').style.pointerEvents = 'none';
+
+    // Helper for dynamic radius
+    function getSeverityRadius(type) {
+        switch (type) {
+            case 'red': return 12;    // Critical
+            case 'orange': return 9; // High
+            default: return 6;        // Standard
+        }
+    }
+
     // Add Markers
     diseasePoints.forEach(point => {
         const color = point.type === 'red' ? '#d93025' :
             point.type === 'orange' ? '#e37400' :
                 point.type === 'blue' ? '#1a73e8' : '#fbbc04';
 
+        const radius = getSeverityRadius(point.type);
+
         const circle = L.circleMarker([point.lat, point.lon], {
             color: color,
             fillColor: color,
-            fillOpacity: 0.7,
-            radius: 8
+            fillOpacity: 0.9,
+            radius: radius,
+            weight: 2,
+            className: 'pulsing-marker',
+            pane: 'diseaseMarkers'
         }).addTo(map);
 
         // Custom Popup
@@ -354,5 +411,200 @@ document.addEventListener('DOMContentLoaded', () => {
         circle.bindPopup(popupContent);
     });
 
+    // --- NEW: DEPARTMENTAL DATA TABLES LOGIC ---
+
+    const healthDataRaw = {
+        'Amazonas': { dengue25: 43, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' },
+        'Antioquia': { dengue25: '1,702', dengue26: 'Aumento', malaria26: 'Aumento' },
+        'Arauca': { dengue25: 290, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Archipiélago de San Andrés': { dengue25: 40, dengue26: 'N/A', malaria26: 'Tendencia al incremento' },
+        'Atlántico': { dengue25: '1,125', dengue26: 'Aumento', malaria26: 'N/A' },
+        'Barranquilla': { dengue25: '1,385', dengue26: 'N/A', malaria26: 'N/A' },
+        'Bogotá D.C.': { dengue25: 0, dengue26: 'N/A', malaria26: 'N/A' },
+        'Bolívar': { dengue25: 653, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Boyacá': { dengue25: 140, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Buenaventura': { dengue25: 25, dengue26: 'N/A', malaria26: 'N/A' },
+        'Caldas': { dengue25: 144, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Caquetá': { dengue25: 464, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Cali': { dengue25: 872, dengue26: 'N/A', malaria26: 'N/A' },
+        'Cartagena de Indias': { dengue25: '2,317', dengue26: 'N/A', malaria26: 'N/A' },
+        'Casanare': { dengue25: 114, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Cauca': { dengue25: 267, dengue26: 'Aumento', malaria26: 'N/A' },
+        'Cesar': { dengue25: 410, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Chocó': { dengue25: 109, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Córdoba': { dengue25: '1,277', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Cundinamarca': { dengue25: '1,368', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Guainía': { dengue25: 19, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' },
+        'Guaviare': { dengue25: 182, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Huila': { dengue25: '1,008', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'La Guajira': { dengue25: 667, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Magdalena': { dengue25: 110, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Meta': { dengue25: '1,066', dengue26: 'Aumento', malaria26: 'Aumento' },
+        'Nariño': { dengue25: 123, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Norte de Santander': { dengue25: '1,152', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Putumayo': { dengue25: 800, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Quindío': { dengue25: 332, dengue26: 'Tendencia al incremento', malaria26: 'N/A' },
+        'Risaralda': { dengue25: 344, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' },
+        'San Andrés y Providencia': { dengue25: 40, dengue26: 'N/A', malaria26: 'Tendencia al incremento' },
+        'Santa Marta': { dengue25: 91, dengue26: 'N/A', malaria26: 'N/A' },
+        'Santander': { dengue25: '1,298', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Sucre': { dengue25: 803, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Tolima': { dengue25: '1,692', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
+        'Valle del Cauca': { dengue25: '1,306', dengue26: 'Aumento', malaria26: 'Aumento' },
+        'Vaupés': { dengue25: 6, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
+        'Vichada': { dengue25: 99, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' }
+    };
+
+    const weatherForecastRaw = {
+        'Insular': [
+            { mont: 'Ene', prec: 'Exceso +10-20%', temp: '+1.5 °C' },
+            { mont: 'Feb', prec: 'Normal / Déficit', temp: 'Normal' },
+            { mont: 'Mar', prec: 'Exceso +10-20%', temp: 'Normal' },
+            { mont: 'Abr', prec: 'Déficit -20-40%', temp: 'Normal' },
+            { mont: 'May', prec: 'Déficit -10-20%', temp: '+0.5-2.0 °C' },
+            { mont: 'Jun', prec: 'Normal', temp: '+0.5-2.0 °C' },
+            { mont: 'Jul', prec: 'Déficit -20%', temp: '+0.5-2.0 °C' }
+        ],
+        'Caribe': [
+            { mont: 'Ene', prec: 'Exceso (Sur) / Déficit (Norte)', temp: '+1.5 °C' },
+            { mont: 'Feb', prec: 'Déficit -10-60%', temp: 'Normal' },
+            { mont: 'Mar', prec: 'Exceso +80% (Sur)', temp: '+0.5-1.0 °C' },
+            { mont: 'Abr', prec: 'Déficit -20-60%', temp: 'Normal' },
+            { mont: 'May', prec: 'Mixto', temp: '+0.5-2.0 °C' },
+            { mont: 'Jun', prec: 'Normal / Déficit', temp: '+0.5-2.0 °C' },
+            { mont: 'Jul', prec: 'Déficit -20-40%', temp: '+0.5-2.0 °C' }
+        ],
+        'Andina': [
+            { mont: 'Ene', prec: 'Exceso +10-30%', temp: '+1.5 °C' },
+            { mont: 'Feb', prec: 'Normal / Déficit', temp: 'Normal' },
+            { mont: 'Mar', prec: 'Exceso +20-50%', temp: 'Normal' },
+            { mont: 'Abr', prec: 'Mixto / Exceso', temp: 'Normal' },
+            { mont: 'May', prec: 'Exceso (Sur) / Normal', temp: '+0.5-2.0 °C' },
+            { mont: 'Jun', prec: 'Exceso / Déficit (Norte)', temp: '+0.5-2.0 °C' },
+            { mont: 'Jul', prec: 'Exceso (Sur) / Déficit', temp: '+0.5-2.0 °C' }
+        ],
+        'Pacífica': [
+            { mont: 'Ene', prec: 'Exceso +10-30%', temp: '+1.5 °C' },
+            { mont: 'Feb', prec: 'Normal / Déficit', temp: 'Normal' },
+            { mont: 'Mar', prec: 'Exceso +10-20%', temp: 'Normal' },
+            { mont: 'Abr', prec: 'Déficit -10-40%', temp: 'Normal' },
+            { mont: 'May', prec: 'Exceso +20%', temp: '+0.5-2.0 °C' },
+            { mont: 'Jun', prec: 'Exceso +10-20%', temp: '+0.5-2.0 °C' },
+            { mont: 'Jul', prec: 'Déficit -30-50%', temp: '+0.5-2.0 °C' }
+        ],
+        'Orinoquía': [
+            { mont: 'Ene', prec: 'Exceso +10-30%', temp: '+1.5 °C' },
+            { mont: 'Feb', prec: 'Déficit -50-70%', temp: 'Normal' },
+            { mont: 'Mar', prec: 'Exceso +10-20%', temp: '+0.5-1.0 °C' },
+            { mont: 'Abr', prec: 'Mixto', temp: 'Normal' },
+            { mont: 'May', prec: 'Normal', temp: '+0.5-2.0 °C' },
+            { mont: 'Jun', prec: 'Normal', temp: '+0.5-2.0 °C' },
+            { mont: 'Jul', prec: 'Normal', temp: '+0.5-2.0 °C' }
+        ],
+        'Amazonía': [
+            { mont: 'Ene', prec: 'Exceso +10-30%', temp: '+1.5 °C' },
+            { mont: 'Feb', prec: 'Déficit / Exceso (Sur)', temp: 'Normal' },
+            { mont: 'Mar', prec: 'Exceso +10-50%', temp: '+0.5-1.0 °C' },
+            { mont: 'Abr', prec: 'Déficit -10-30%', temp: 'Normal' },
+            { mont: 'May', prec: 'Exceso', temp: '+0.5-2.0 °C' },
+            { mont: 'Jun', prec: 'Déficit -20-30%', temp: '+0.5-2.0 °C' },
+            { mont: 'Jul', prec: 'Déficit / Exceso', temp: '+0.5-2.0 °C' }
+        ]
+    };
+
+    const deptSelect = document.getElementById('departmentSelect');
+    const healthContainer = document.getElementById('healthTableContainer');
+    const weatherContainer = document.getElementById('weatherTableContainer');
+
+    // Populate Select
+    const sortedDepts = Object.keys(deptToRegion).sort();
+    sortedDepts.forEach(dept => {
+        const option = document.createElement('option');
+        option.value = dept;
+        option.textContent = dept;
+        deptSelect.appendChild(option);
+    });
+
+    function renderHealthTable(dept) {
+        const data = healthDataRaw[dept] || { dengue25: 'Sin datos', dengue26: 'N/A', malaria26: 'N/A' };
+
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicador</th>
+                        <th>Dato / Pronóstico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dengue - Casos 2025 (Sem 1-5)</strong></td>
+                        <td>${data.dengue25}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dengue - Tendencia Ene 2026</strong></td>
+                        <td class="${getTrendClass(data.dengue26)}">${data.dengue26}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Malaria - Tendencia Ene 2026</strong></td>
+                        <td class="${getTrendClass(data.malaria26)}">${data.malaria26}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+        healthContainer.innerHTML = html;
+    }
+
+    function getTrendClass(text) {
+        if (!text) return '';
+        if (text.includes('Aumento') || text.includes('incremento') || text.includes('Exceso')) return 'trend-up';
+        if (text.includes('Déficit')) return 'trend-down';
+        return 'trend-stable';
+    }
+
+    function renderWeatherTable(dept) {
+        const region = getRegion(dept);
+        const data = weatherForecastRaw[region] || [];
+
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Precipitación (Anomalía)</th>
+                        <th>Temperatura (Anomalía)</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        data.forEach(row => {
+            html += `
+                <tr>
+                    <td>${row.mont}</td>
+                    <td class="${getTrendClass(row.prec)}">${row.prec}</td>
+                    <td class="trend-up">${row.temp}</td>
+                </tr>
+            `;
+        });
+
+        html += `</tbody></table>`;
+        weatherContainer.innerHTML = html;
+    }
+
+    // Init
+    deptSelect.addEventListener('change', (e) => {
+        const dept = e.target.value;
+        renderHealthTable(dept);
+        renderWeatherTable(dept);
+    });
+
+    // Default Render
+    if (sortedDepts.length > 0) {
+        renderHealthTable(sortedDepts[0]);
+        renderWeatherTable(sortedDepts[0]);
+    }
+
 });
+
 

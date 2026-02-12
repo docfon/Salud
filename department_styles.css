@@ -1,0 +1,127 @@
+/* --- Department Projections Section --- */
+#department-details {
+    padding: 2rem;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+#department-details h2 {
+    text-align: center;
+    color: #202124;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-desc {
+    text-align: center;
+    color: #5f6368;
+    margin-bottom: 2rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.controls label {
+    font-weight: 600;
+    color: #3c4043;
+}
+
+#departmentSelect {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid #dadce0;
+    font-size: 1rem;
+    color: #202124;
+    background: white;
+    cursor: pointer;
+}
+
+.tables-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .tables-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.data-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.data-card h3 {
+    margin-top: 0;
+    color: #1a73e8;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e8f0fe;
+    padding-bottom: 0.5rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+th,
+td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+th {
+    font-weight: 600;
+    color: #5f6368;
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.source-note {
+    font-size: 0.75rem;
+    color: #70757a;
+    margin-top: 1rem;
+    font-style: italic;
+    text-align: right;
+}
+
+/* Specific Table Stylings */
+.trend-up {
+    color: #d93025;
+    font-weight: 600;
+}
+
+.trend-stable {
+    color: #fbbc04;
+    font-weight: 600;
+}
+
+.trend-down {
+    color: #34a853;
+    font-weight: 600;
+}

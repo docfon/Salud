@@ -688,6 +688,31 @@ canvas {
     box-shadow: 0 0 5px #fbbc04;
 }
 
+/* Region Colors */
+.dot.reg-andina {
+    background: #AC9F3C;
+}
+
+.dot.reg-caribe {
+    background: #EF7F1A;
+}
+
+.dot.reg-pacifica {
+    background: #5097A4;
+}
+
+.dot.reg-orinoquia {
+    background: #9AB020;
+}
+
+.dot.reg-amazonia {
+    background: #4B6F2D;
+}
+
+.dot.reg-insular {
+    background: #1783BA;
+}
+
 /* Leaflet Popup Customization */
 .leaflet-popup-content-wrapper {
     border-radius: 12px;
