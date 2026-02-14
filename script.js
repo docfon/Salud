@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         type: 'line',
         data: {
             labels: ['Ene 2024', 'Feb 2024', 'Mar 2024', 'Abr 2024', 'May 2024', 'Jun 2024',
-                     'Jul 2024', 'Ago 2024', 'Sep 2024', 'Oct 2024', 'Nov 2024', 'Dic 2024', 'Ene 2025'],
+                'Jul 2024', 'Ago 2024', 'Sep 2024', 'Oct 2024', 'Nov 2024', 'Dic 2024', 'Ene 2025'],
             datasets: [
                 {
                     label: '"Dengue" — Búsquedas',
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 legend: { position: 'top' },
                 tooltip: {
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             return context.dataset.label + ': ' + context.parsed.y + '/100';
                         }
                     }
@@ -389,11 +389,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const deptToRegion = {
         'Antioquia': 'Andina', 'Boyacá': 'Andina', 'Caldas': 'Andina', 'Cundinamarca': 'Andina',
         'Huila': 'Andina', 'Norte de Santander': 'Andina', 'Quindío': 'Andina', 'Risaralda': 'Andina',
-        'Santander': 'Andina', 'Tolima': 'Andina', 'Bogota': 'Andina', 'Bogotá': 'Andina',
+        'Santander': 'Andina', 'Tolima': 'Andina', 'Bogotá': 'Andina',
 
         'Atlántico': 'Caribe', 'Bolívar': 'Caribe', 'Cesar': 'Caribe', 'Córdoba': 'Caribe',
         'La Guajira': 'Caribe', 'Magdalena': 'Caribe', 'Sucre': 'Caribe', 'San Andrés y Providencia': 'Insular',
-        'Archipiélago de San Andrés, Providencia y Santa Catalina': 'Insular',
 
         'Chocó': 'Pacífica', 'Valle del Cauca': 'Pacífica', 'Cauca': 'Pacífica', 'Nariño': 'Pacífica',
 
@@ -485,45 +484,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- NEW: DEPARTMENTAL DATA TABLES LOGIC ---
 
     const healthDataRaw = {
-        'Amazonas': { dengue25: 43, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' },
-        'Antioquia': { dengue25: '1,702', dengue26: 'Aumento', malaria26: 'Aumento' },
-        'Arauca': { dengue25: 290, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Archipiélago de San Andrés': { dengue25: 40, dengue26: 'N/A', malaria26: 'Tendencia al incremento' },
-        'Atlántico': { dengue25: '1,125', dengue26: 'Aumento', malaria26: 'N/A' },
-        'Barranquilla': { dengue25: '1,385', dengue26: 'N/A', malaria26: 'N/A' },
-        'Bogotá D.C.': { dengue25: 0, dengue26: 'N/A', malaria26: 'N/A' },
-        'Bolívar': { dengue25: 653, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Boyacá': { dengue25: 140, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Buenaventura': { dengue25: 25, dengue26: 'N/A', malaria26: 'N/A' },
-        'Caldas': { dengue25: 144, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Caquetá': { dengue25: 464, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Cali': { dengue25: 872, dengue26: 'N/A', malaria26: 'N/A' },
-        'Cartagena de Indias': { dengue25: '2,317', dengue26: 'N/A', malaria26: 'N/A' },
-        'Casanare': { dengue25: 114, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Cauca': { dengue25: 267, dengue26: 'Aumento', malaria26: 'N/A' },
-        'Cesar': { dengue25: 410, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Chocó': { dengue25: 109, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Córdoba': { dengue25: '1,277', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Cundinamarca': { dengue25: '1,368', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Guainía': { dengue25: 19, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' },
-        'Guaviare': { dengue25: 182, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Huila': { dengue25: '1,008', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'La Guajira': { dengue25: 667, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Magdalena': { dengue25: 110, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Meta': { dengue25: '1,066', dengue26: 'Aumento', malaria26: 'Aumento' },
-        'Nariño': { dengue25: 123, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Norte de Santander': { dengue25: '1,152', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Putumayo': { dengue25: 800, dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Quindío': { dengue25: 332, dengue26: 'Tendencia al incremento', malaria26: 'N/A' },
-        'Risaralda': { dengue25: 344, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' },
-        'San Andrés y Providencia': { dengue25: 40, dengue26: 'N/A', malaria26: 'Tendencia al incremento' },
-        'Santa Marta': { dengue25: 91, dengue26: 'N/A', malaria26: 'N/A' },
-        'Santander': { dengue25: '1,298', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Sucre': { dengue25: 803, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Tolima': { dengue25: '1,692', dengue26: 'Aumento', malaria26: 'Tendencia al incremento' },
-        'Valle del Cauca': { dengue25: '1,306', dengue26: 'Aumento', malaria26: 'Aumento' },
-        'Vaupés': { dengue25: 6, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento' },
-        'Vichada': { dengue25: 99, dengue26: 'Tendencia al incremento', malaria26: 'Aumento' }
+        'Amazonas': { dengue25: 43, dengue26: 'Tendencia al incremento', malaria26: 'Aumento', ira25: 'Disminución', ira26: 'Estable' },
+        'Antioquia': { dengue25: '1,702', dengue26: 'Aumento', malaria26: 'Aumento', ira25: 'Aumento', ira26: 'Aumento' },
+        'Arauca': { dengue25: 290, dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'San Andrés y Providencia': { dengue25: 40, dengue26: 'N/A', malaria26: 'Tendencia al incremento', ira25: 'Disminución', ira26: 'Estable' },
+        'Atlántico': { dengue25: '1,125', dengue26: 'Aumento', malaria26: 'N/A', ira25: 'Aumento', ira26: 'Estable' },
+        'Barranquilla': { dengue25: '1,385', dengue26: 'N/A', malaria26: 'N/A', ira25: 'Aumento', ira26: 'Estable' },
+        'Bogotá': { dengue25: 0, dengue26: 'N/A', malaria26: 'N/A', ira25: 'Estable', ira26: 'Aumento (Positividad 48%)', viralCirculation: 'Parainfluenza / H1N1' },
+        'Bolívar': { dengue25: 653, dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Boyacá': { dengue25: 140, dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Buenaventura': { dengue25: 25, dengue26: 'N/A', malaria26: 'N/A', ira25: 'Mixto', ira26: 'Estable' },
+        'Caldas': { dengue25: 144, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Caquetá': { dengue25: 464, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Cali': { dengue25: 872, dengue26: 'N/A', malaria26: 'N/A', ira25: 'Mixto', ira26: 'Estable' },
+        'Cartagena de Indias': { dengue25: '2,317', dengue26: 'N/A', malaria26: 'N/A', ira25: 'Aumento', ira26: 'Estable' },
+        'Casanare': { dengue25: 114, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Cauca': { dengue25: 267, dengue26: 'Aumento', malaria26: 'N/A', ira25: 'Aumento', ira26: 'Estable' },
+        'Cesar': { dengue25: 410, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Chocó': { dengue25: 109, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Aumento' },
+        'Córdoba': { dengue25: '1,277', dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Cundinamarca': { dengue25: '1,368', dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Aumento' },
+        'Guainía': { dengue25: 19, dengue26: 'Tendencia al incremento', malaria26: 'Aumento', ira25: 'Disminución', ira26: 'Estable' },
+        'Guaviare': { dengue25: 182, dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Disminución', ira26: 'Estable' },
+        'Huila': { dengue25: '1,008', dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'La Guajira': { dengue25: 667, dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Mixto', ira26: 'Aumento' },
+        'Magdalena': { dengue25: 110, dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Aumento' },
+        'Meta': { dengue25: '1,066', dengue26: 'Aumento', malaria26: 'Aumento', ira25: 'Aumento', ira26: 'Estable' },
+        'Nariño': { dengue25: 123, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Norte de Santander': { dengue25: '1,152', dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Disminución', ira26: 'Estable' },
+        'Putumayo': { dengue25: 800, dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Quindío': { dengue25: 332, dengue26: 'Tendencia al incremento', malaria26: 'N/A', ira25: 'Aumento', ira26: 'Estable' },
+        'Risaralda': { dengue25: 344, dengue26: 'Tendencia al incremento', malaria26: 'Aumento', ira25: 'Aumento', ira26: 'Estable' },
+        'Santa Marta': { dengue25: 91, dengue26: 'N/A', malaria26: 'N/A', ira25: 'Aumento', ira26: 'Aumento' },
+        'Santander': { dengue25: '1,298', dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Mixto', ira26: 'Estable' },
+        'Sucre': { dengue25: 803, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Tolima': { dengue25: '1,692', dengue26: 'Aumento', malaria26: 'Tendencia al incremento', ira25: 'Aumento', ira26: 'Estable' },
+        'Valle del Cauca': { dengue25: '1,306', dengue26: 'Aumento', malaria26: 'Aumento', ira25: 'Mixto', ira26: 'Estable' },
+        'Vaupés': { dengue25: 6, dengue26: 'Tendencia al incremento', malaria26: 'Tendencia al incremento', ira25: 'Disminución', ira26: 'Aumento' },
+        'Vichada': { dengue25: 99, dengue26: 'Tendencia al incremento', malaria26: 'Aumento', ira25: 'Mixto', ira26: 'Estable' }
     };
 
     const weatherForecastRaw = {
@@ -597,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function renderHealthTable(dept) {
-        const data = healthDataRaw[dept] || { dengue25: 'Sin datos', dengue26: 'N/A', malaria26: 'N/A' };
+        const data = healthDataRaw[dept] || { dengue25: 'Sin datos', dengue26: 'N/A', malaria26: 'N/A', ira25: 'N/A', ira26: 'N/A' };
 
         let html = `
             <table>
@@ -614,12 +612,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     </tr>
                     <tr>
                         <td><strong>Dengue - Tendencia Ene 2026</strong></td>
-                        <td class="${getTrendClass(data.dengue26)}">${data.dengue26}</td>
+                        <td><span class="${getTrendClass(data.dengue26)}">${data.dengue26}</span></td>
                     </tr>
                     <tr>
                         <td><strong>Malaria - Tendencia Ene 2026</strong></td>
-                        <td class="${getTrendClass(data.malaria26)}">${data.malaria26}</td>
+                        <td><span class="${getTrendClass(data.malaria26)}">${data.malaria26}</span></td>
                     </tr>
+                    <tr>
+                        <td><strong>IRA - Tendencia Ene 2025</strong></td>
+                        <td><span class="${getTrendClass(data.ira25)}">${data.ira25}</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>IRA - Tendencia Ene 2026</strong></td>
+                        <td><span class="${getTrendClass(data.ira26)}">${data.ira26}</span></td>
+                    </tr>
+        `;
+
+        if (data.viralCirculation) {
+            html += `
+                    <tr>
+                        <td><strong>Circulación Viral Predominante</strong></td>
+                        <td><span class="trend-up">${data.viralCirculation}</span></td>
+                    </tr>
+            `;
+        }
+
+        html += `
                 </tbody>
             </table>
         `;
@@ -628,8 +646,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getTrendClass(text) {
         if (!text) return '';
-        if (text.includes('Aumento') || text.includes('incremento') || text.includes('Exceso')) return 'trend-up';
-        if (text.includes('Déficit')) return 'trend-down';
+        const lowerText = text.toString().toLowerCase();
+        if (lowerText.includes('aumento') || lowerText.includes('incremento') || lowerText.includes('exceso') || lowerText.startsWith('+')) return 'trend-up';
+        if (lowerText.includes('déficit') || lowerText.startsWith('-')) return 'trend-down';
         return 'trend-stable';
     }
 
@@ -653,8 +672,8 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `
                 <tr>
                     <td>${row.mont}</td>
-                    <td class="${getTrendClass(row.prec)}">${row.prec}</td>
-                    <td class="trend-up">${row.temp}</td>
+                    <td><span class="${getTrendClass(row.prec)}">${row.prec}</span></td>
+                    <td><span class="${getTrendClass(row.temp)}">${row.temp}</span></td>
                 </tr>
             `;
         });
