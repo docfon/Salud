@@ -329,6 +329,21 @@ canvas {
     color: var(--text-primary);
 }
 
+/* Google Trends Badge */
+.gt-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #4285F4, #34A853, #FBBC05, #EA4335);
+    color: white;
+    font-size: 0.65em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
 /* Correlations */
 .correlation-container {
     display: grid;

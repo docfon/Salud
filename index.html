@@ -41,6 +41,10 @@
                     <span class="material-symbols-outlined">show_chart</span>
                     <span class="nav-label">Tendencias</span>
                 </a>
+                <a href="#google-trends" class="nav-item" title="Google Trends">
+                    <span class="material-symbols-outlined">trending_up</span>
+                    <span class="nav-label">G. Trends</span>
+                </a>
                 <a href="#forecast" class="nav-item" title="Pronóstico">
                     <span class="material-symbols-outlined">calendar_month</span>
                     <span class="nav-label">Pronóstico</span>
@@ -62,7 +66,7 @@
                     <span class="nav-label">Fuentes</span>
                 </a>
             </div>
-            <div class="version">v1.4</div>
+            <div class="version">v1.5</div>
         </nav>
 
         <!-- Main Content -->
@@ -176,6 +180,21 @@
                     <div class="insight-box" id="trendInsight">
                         <strong>Insight:</strong> El Dengue mostró un comportamiento histórico en 2024 debido a El Niño.
                         2026 inicia con picos atípicos en la costa norte.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: GOOGLE TRENDS —  Interés de Búsqueda -->
+            <section id="google-trends">
+                <header>
+                    <h2>Interés de Búsqueda en Google <span class="gt-badge">Google Trends</span></h2>
+                    <p>Volumen relativo de búsquedas de "dengue" y "gripa" en Colombia (2024-2025). Escala 0-100 donde 100 = máximo interés.</p>
+                </header>
+                <div class="card graph-card" style="min-height: 420px;">
+                    <h3>Tendencia de Búsquedas en Colombia</h3>
+                    <canvas id="googleTrendsChart"></canvas>
+                    <div class="insight-box" id="gtInsight">
+                        <strong>Insight:</strong> El pico de búsquedas de "dengue" en Mar 2024 (91) coincide con la oleada epidémica por El Niño. "Gripa" dispara a 92 en Ene 2025, correlacionándose con el fenómeno de "Supergripa" reportado. Los cruces entre ambas curvas reflejan la estacionalidad: dengue domina en temporada seca-caliente y gripa en temporada fría-húmeda.
                     </div>
                 </div>
             </section>

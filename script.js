@@ -106,6 +106,77 @@ document.addEventListener('DOMContentLoaded', () => {
         trendInsight.innerHTML = trendData[selected].insight;
     });
 
+    // --- GOOGLE TRENDS CHART ---
+    const gtCtx = document.getElementById('googleTrendsChart').getContext('2d');
+    new Chart(gtCtx, {
+        type: 'line',
+        data: {
+            labels: ['Ene 2024', 'Feb 2024', 'Mar 2024', 'Abr 2024', 'May 2024', 'Jun 2024',
+                     'Jul 2024', 'Ago 2024', 'Sep 2024', 'Oct 2024', 'Nov 2024', 'Dic 2024', 'Ene 2025'],
+            datasets: [
+                {
+                    label: '"Dengue" — Búsquedas',
+                    data: [58, 81, 91, 67, 49, 44, 51, 41, 39, 34, 29, 32, 31],
+                    borderColor: '#d93025',
+                    backgroundColor: 'rgba(217, 48, 37, 0.08)',
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#d93025',
+                    pointHoverRadius: 7,
+                    borderWidth: 2.5
+                },
+                {
+                    label: '"Gripa" — Búsquedas',
+                    data: [51, 45, 70, 60, 48, 59, 61, 63, 65, 64, 57, 68, 92],
+                    borderColor: '#1a73e8',
+                    backgroundColor: 'rgba(26, 115, 232, 0.08)',
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#1a73e8',
+                    pointHoverRadius: 7,
+                    borderWidth: 2.5
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + '/100';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Interés relativo (0-100)',
+                        font: { size: 12 }
+                    }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                }
+            }
+        }
+    });
+
     // --- EXISTING CHARTS (TRANSLATED) ---
 
     // 1. IRA (Respiratory) Chart
